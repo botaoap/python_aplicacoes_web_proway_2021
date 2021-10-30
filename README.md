@@ -13,6 +13,6 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 <!---Estes são apenas requisitos de exemplo. Adicionar, duplicar ou remover conforme necessário--->
 *  Verificar se tem python instalado: python3 --version
 
-## GitHub para o Curso
+## Sobre
 * GitHub: [AQUI](https://github.com/mwsolti)
-
+* Django Install: [AQUI](install_django.md)
