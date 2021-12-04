@@ -6,3 +6,7 @@ Professor: Walter Pasold
 # Site para fazer diagramas
 - [Diagram](https://online.visual-paradigm.com/pt/)
   
+# Estudos para negócio
+- Scrum
+- Itil
+- UML
