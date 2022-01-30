@@ -1,5 +1,5 @@
 ## Criando Ambiente Virtiual Passo a Passo
-### CMD
+### CMD Setp1
 1. ` mkdir <nome-pasta> ` Criar uma pasta
 2. ` cd <nome-pasta> ` Entrar na pasta
 3. ` pip install virtualenv ` Instalacao do Virtual Venv
@@ -10,3 +10,6 @@
 
 ### Achar caminho de pastas Terminal
 - pwd
+### CMD Setp2
+1. `python3 manage.py` Verificar quais comandos estao disponiveis
+2. 

@@ -14,5 +14,6 @@ Antes de começar, verifique se você atendeu aos seguintes requisitos:
 *  Verificar se tem python instalado: python3 --version
 
 ## Sobre
-* GitHub: [AQUI](https://github.com/mwsolti)
 * Django Install: [AQUI](install_django.md)
+### Step1
+* GitHub: [AQUI](https://github.com/mwsolti)

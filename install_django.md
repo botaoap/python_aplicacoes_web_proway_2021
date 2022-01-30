@@ -1,4 +1,8 @@
-# Instalando DJANGO
+# Django Install
+- (Django)[https://www.djangoproject.com]
+
+## How to install
+- (Install)[https://docs.djangoproject.com/en/4.0/topics/install/]
 
 ## Começando o Projeto utilizando CMD:
 - python -m pip install --upgrade pip 
