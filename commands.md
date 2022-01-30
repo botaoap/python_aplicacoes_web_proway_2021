@@ -12,4 +12,4 @@
 - pwd
 ### CMD Setp2
 1. `python3 manage.py` Verificar quais comandos estao disponiveis
-2. 
+2. `python3 manage.py startapp produto` 
