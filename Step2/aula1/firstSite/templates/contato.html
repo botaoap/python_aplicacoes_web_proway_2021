@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+
+{% block titulo %}Contato{% endblock %}
+
+{% block body %}
+<form accept="#" method="post">
+    <input type="text" name="txtNome" id="txtNome" placeholder="nome"><br>
+    <input type="text" name="txtEmail" id="txtEmail" placeholder="email"><br>
+    <input type="submit" value="Send" />
+    <input type="reset" value="Cancel" />
+</form>
+{% endblock %}
