@@ -16,13 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from.views import home, list_course
+from.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', home),
     path('contato', TemplateView.as_view(template_name='contato.html')),
     path('login', TemplateView.as_view(template_name='login.html')),
-    path('course', list_course),
+    path('lista-produto', TemplateView.as_view(template_name='lista-produto.html')),
+    path('lista-cliente', TemplateView.as_view(template_name='lista-cliente.html')),
+    path('lista-servico', TemplateView.as_view(template_name='lista-servico.html')),
+    path('cadastro-cliente', TemplateView.as_view(template_name='cadastro-cliente.html')),
     path('', home),
 ]
