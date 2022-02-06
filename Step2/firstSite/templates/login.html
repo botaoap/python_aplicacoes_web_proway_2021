@@ -3,10 +3,21 @@
 {% block titulo %} Login {% endblock %}
 
 {% block body %} 
-<form accept="#" method="post">
-    <input type="text" name="txtLogin" id="txtLogin" placeholder="login"><br>
-    <input type="text" name="txtPws" id="txtPws" placeholder="password"><br>
-    <input type="submit" value="Send" />
-    <input type="reset" value="Cancel" />
-</form>
+<div style="display: flex; justify-content: center; flex-direction: column; margin-left: 20%; margin-right: 20%;margin-top: 1%;">
+    <div style="display: flex; justify-content: center;">
+      <h1 class="text-primary"><label>Login</label></h1>
+    </div>
+    <form action="">
+      <div class="mb-3">
+        <label for="textNome" class="form-label text-primary">Login</label>
+        <input type="text" class="form-control" id="textNome" placeholder="Login">
+      </div>
+      <div class="mb-3">
+        <label for="textPassword" class="form-label text-primary">Password</label>
+        <input type="password" class="form-control" id="textPassword" placeholder="Password">
+      </div>
+      <input class="btn btn-primary" type="submit" value="Enviar" />
+      <input class="btn btn-danger" type="reset" value="Cancel" />
+    </form>
+  </div>
 {% endblock %}

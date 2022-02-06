@@ -3,10 +3,21 @@
 {% block titulo %}Contato{% endblock %}
 
 {% block body %}
-<form accept="#" method="post">
-    <input type="text" name="txtNome" id="txtNome" placeholder="nome"><br>
-    <input type="text" name="txtEmail" id="txtEmail" placeholder="email"><br>
-    <input type="submit" value="Send" />
-    <input type="reset" value="Cancel" />
-</form>
+<div style="display: flex; justify-content: center; flex-direction: column; margin-left: 20%; margin-right: 20%;margin-top: 1%;">
+  <div style="display: flex; justify-content: center;">
+    <h1 class="text-primary"><label>Contato</label></h1>
+  </div>
+  <form action="">
+    <div class="mb-3">
+      <label for="textNomeContato" class="form-label text-primary">Nome</label>
+      <input type="text" class="form-control" id="textNomeContato" placeholder="Informe seu Nome">
+    </div>
+    <div class="mb-3">
+      <label for="textEmailContato" class="form-label text-primary">Email</label>
+      <input type="email" class="form-control" id="textEmailContato" placeholder="nome@exemplo.com">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Enviar" />
+    <input class="btn btn-danger" type="reset" value="Cancel" />
+  </form>
+</div>
 {% endblock %}
