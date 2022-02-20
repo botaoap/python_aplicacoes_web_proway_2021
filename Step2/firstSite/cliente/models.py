@@ -21,6 +21,7 @@ class CPFCNPJ(models.Model):
         return self.valor
 
 class UF(models.Model):
+    nome = models.CharField(max_length=20,unique=True, blank=False, null=False)
     sigla = models.CharField(max_length=2, unique=True, blank=False, null=False)
 
     class Meta:
