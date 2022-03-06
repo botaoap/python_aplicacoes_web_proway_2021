@@ -3,7 +3,7 @@ from .models import TpPessoa, CPFCNPJ, UF, Cidade, Cliente
 
 # Register your models here.
 class VisualizaCLiente(admin.ModelAdmin):
-    list_display = ['id', 'nome', 'cpfcnpj','estadoCivil']
+    list_display = ['id', 'nome', 'cpfcnpj','estado_civil']
     list_display_links = ['id','nome']
     list_per_page = 5
     # search_fields = ['nome','email']

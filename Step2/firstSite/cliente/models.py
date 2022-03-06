@@ -71,7 +71,7 @@ class Cliente(models.Model):
     profissao = models.CharField(max_length=50,null=True,  blank=True)
     renda = models.DecimalField(max_digits=8, decimal_places=2,null=True,  blank=True)
     carro = models.CharField(max_length=1,choices=CAR,null=True,  blank=True)
-    estadoCivil = models.IntegerField(choices=CIVIL_STATE, default=1, null=True,  blank=True)
+    estado_civil = models.IntegerField(choices=CIVIL_STATE, default=1, null=True,  blank=True)
     filho = models.CharField(max_length=1,choices=CHILD, null=True,  blank=True)
 
     class Meta:
