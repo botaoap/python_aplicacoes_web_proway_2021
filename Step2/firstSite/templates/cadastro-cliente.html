@@ -27,9 +27,9 @@
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
           <select class="form-select" name="textCidade" id="textCidade">
-            <option value="Blumenau">Blumenau</optlion>
-            <option value="Joinvile">Joinvile</option>
-            <option value="Curitiba">Curitiba</option>
+            {% for cidades in cidade %}
+              <option value="{{ cidades.id }}">{{ cidades.nome }}</optlion>
+            {% endfor %}
           </select>
         </div>
         <div class="mb-3">
@@ -72,8 +72,10 @@
             <option value="N">Não</option>
           </select>
         </div>
-        <input class="btn btn-primary" type="submit" value="Cadastrar" />
-        <input class="btn btn-danger" type="reset" value="Cancel" />
+        <div style="margin-bottom: 2%;">
+          <input class="btn btn-primary" type="submit" value="Cadastrar" />
+          <input class="btn btn-danger" type="reset" value="Cancel" />
+        </div>
       </form>
 </div>
 {% endblock %}

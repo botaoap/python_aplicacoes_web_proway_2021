@@ -14,13 +14,14 @@
         </div>
         <div class="mb-3">
           <label for="textValor" class="form-label text-primary">Valor</label>
-          <input type="email" class="form-control" id="textValor" placeholder="R$100,00">
+          <input type="text" class="form-control" id="textValor" placeholder="R$100,00">
         </div>
         <div class="mb-3">
           <label for="textCategoria" class="form-label text-primary">Categoria</label>
           <select class="form-select" name="textCidade" id="textCategoria">
-            <option value="H">Hardware</optlion>
-            <option value="S">Software</option>
+            {% for categorias in categoria %}
+              <option value="{{ categorias.id }}">{{ categorias.nome }}</optlion>
+            {% endfor %}
           </select>
         </div>
         <input class="btn btn-primary" type="submit" value="Cadastrar" />

@@ -1,0 +1,59 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Excluir Clientes{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Excluir Clientes</label></h1>
+    </div>
+    <form action="">
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textEmail" class="form-label text-primary">Email</label>
+          <input type="email" class="form-control" id="textEmail" placeholder="nome@exemplo.com" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="textDataNasc" class="form-label text-primary">Data de Nascimento</label>
+            <input type="date" class="form-control" id="textDataNasc" placeholder="00/00/0000" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
+            <input type="number" class="form-control" id="textCpfCnpj" placeholder="000.000.000-00" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textCidade" class="form-label text-primary">Cidade</label>
+          <input type="text" class="form-control" id="textCidade" placeholder="Cidade" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textGenero" class="form-label text-primary">Genero</label>
+          <input type="text" class="form-control" id="textGenero" placeholder="Genero" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textProfissao" class="form-label text-primary">Profissão</label>
+          <input type="text" class="form-control" id="textProfissao" placeholder="Informe a Profissão" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textRenda" class="form-label text-primary">Renda</label>
+          <input type="text" class="form-control" id="textRenda" placeholder="00,00" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textCarro" class="form-label text-primary">Tem Carro?</label>
+          <input type="text" class="form-control" id="textCarro" placeholder="Sim/Nao" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
+          <input type="text" class="form-control" id="textEstadoCivil" placeholder="Estado Civil" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
+          <input type="text" class="form-control" id="textFilho" placeholder="Sim/Nao" readonly>
+        </div>
+        <input class="btn btn-danger" type="submit" value="Excluir" />
+        <input class="btn btn-primary" type="reset" value="Cancel" />
+      </form>
+</div>
+{% endblock %}

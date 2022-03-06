@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Excluir Produtos{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Excluir de Produtos</label></h1>
+    </div>
+    <form action="">
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textValor" class="form-label text-primary">Valor</label>
+          <input type="email" class="form-control" id="textValor" placeholder="R$100,00" readonly>
+        </div>
+        <div class="mb-3">
+          <label for="textCategoria" class="form-label text-primary">Categoria</label>
+          <input type="text" class="form-control" id="textCategoria" placeholder="Categoria" readonly>
+        </div>
+        <input class="btn btn-danger" type="submit" value="Excluir" />
+        <input class="btn btn-primary" type="reset" value="Cancel" />
+      </form>
+</div>
+{% endblock %}

@@ -10,6 +10,7 @@
     <div>
         <a href="cadastro-cidade"><input type="button" value="Novo" class="btn btn-primary"></a>
     </div>
+    {% if total > 0 %}
     <table class="table table-striped">
         <thead>
             <tr>
@@ -21,17 +22,22 @@
             </tr>
         </thead>
         <tbody>
+            {% for cidades in cidade %}
             <tr>
-                <td>&nbsp;</td>
+                <td>{{cidades.nome}}</td>
                 <td align="right">
                     <a href="altera-cidade"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <input type="button" class="btn btn-danger" value="Excluir">
+                    <a href="exclui-cidade"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
         <tfoot>
-            <td colspan="3" align="right"><label>Total de Registro: 0</label></td>
+            <td colspan="3" align="right"><label>Total de Registro: {{total}}</label></td>
         </tfoot>
     </table>
+    {% else %}
+    {% include 'sem-itens.html' %}
+    {% endif %}
 </div>
 {% endblock %}

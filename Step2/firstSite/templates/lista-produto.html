@@ -10,6 +10,7 @@
     <div>
         <a href="cadastro-produto"><input type="button" value="Novo" class="btn btn-primary"></a>
     </div>
+    {% if total > 0 %}
     <table class="table table-striped">
         <thead>
             <tr>
@@ -17,21 +18,28 @@
             </tr>
             <tr>
                 <td><label>Nome</label></td>
+                <td><label>Valor</label></td>
                 <td colspan="2" align="right"><label>Açoes</label></td>
             </tr>
         </thead>
         <tbody>
+            {% for produtos in produto %}
             <tr>
-                <td>&nbsp;</td>
+                <td>{{ produtos.nome }}</td>
+                <td>{{ produtos.valor }}</td>
                 <td align="right">
                     <a href="altera-produto"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <input type="button" class="btn btn-danger" value="Excluir">
+                    <a href="exclui-produto"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
         <tfoot>
-            <td colspan="3" align="right"><label>Total de Registro: 0</label></td>
+            <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
         </tfoot>
     </table>
+    {% else %}
+    {% include 'sem-itens.html' %}
+    {% endif %}
 </div>
 {% endblock %}
