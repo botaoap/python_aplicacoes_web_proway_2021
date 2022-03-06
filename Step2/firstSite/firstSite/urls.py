@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import home, lista_cidade, lista_tp_pessoa, lista_uf, lista_cliente, lista_produto, lista_servico
-from .views import cadastro_cliente, cadastro_produto, cadastro_cidade, cadastro_servico, cadastro_tp_pessoa, cadastro_uf
-from .views import altera_cidade, altera_cliente, altera_produto, altera_servico, altera_tp_pessoa, altera_uf
+from .views import home, lista_cidade, lista_tp_pessoa, lista_uf, lista_cliente, lista_produto, lista_servico, lista_categoria
+from .views import cadastro_cliente, cadastro_produto, cadastro_cidade, cadastro_servico, cadastro_tp_pessoa, cadastro_uf, cadastro_categoria
+from .views import altera_cidade, altera_cliente, altera_produto, altera_servico, altera_tp_pessoa, altera_uf, altera_categoria
+from .views import exclui_cidade, exclui_cliente, exclui_produto, exclui_servico, exclui_tp_pessoa, exclui_uf, exclui_categoria
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,17 +32,27 @@ urlpatterns = [
     path('lista-tp-pessoa', lista_tp_pessoa),
     path('lista-uf', lista_uf),
     path('lista-cidade', lista_cidade),
+    path('lista-categoria', lista_categoria),
     path('cadastro-produto', cadastro_produto),
     path('cadastro-cliente',cadastro_cliente),
     path('cadastro-servico',cadastro_servico),
     path('cadastro-tp-pessoa',cadastro_tp_pessoa),
     path('cadastro-uf',cadastro_uf),
     path('cadastro-cidade',cadastro_cidade),
+    path('cadastro-categoria',cadastro_categoria),
     path('altera-produto', altera_produto),
     path('altera-cliente', altera_cliente),
     path('altera-servico', altera_servico),
     path('altera-tp-pessoa', altera_tp_pessoa),
     path('altera-uf', altera_uf),
     path('altera-cidade', altera_cidade),
+    path('altera-categoria', altera_categoria),
+    path('exclui-produto', exclui_produto),
+    path('exclui-cliente', exclui_cliente),
+    path('exclui-servico', exclui_servico),
+    path('exclui-tp-pessoa', exclui_tp_pessoa),
+    path('exclui-uf', exclui_uf),
+    path('exclui-cidade', exclui_cidade),
+    path('exclui-categoria', exclui_categoria),
     path('', home),
 ]
