@@ -7,18 +7,19 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Cadastro de Produtos</label></h1>
     </div>
-    <form action="">
+    <form method="post" action="">
+      {% csrf_token %}
         <div class="mb-3">
           <label for="textNome" class="form-label text-primary">Nome</label>
-          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome">
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome">
         </div>
         <div class="mb-3">
           <label for="textValor" class="form-label text-primary">Valor</label>
-          <input type="text" class="form-control" id="textValor" placeholder="R$100,00">
+          <input type="text" class="form-control" id="textValor" name="valor" placeholder="R$100,00">
         </div>
         <div class="mb-3">
           <label for="textCategoria" class="form-label text-primary">Categoria</label>
-          <select class="form-select" name="textCidade" id="textCategoria">
+          <select class="form-select" id="textCategoria" name="categoria">
             {% for categorias in categoria %}
               <option value="{{ categorias.id }}">{{ categorias.nome }}</optlion>
             {% endfor %}

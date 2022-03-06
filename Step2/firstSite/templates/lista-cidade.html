@@ -26,14 +26,14 @@
             <tr>
                 <td>{{cidades.nome}}</td>
                 <td align="right">
-                    <a href="altera-cidade"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <a href="exclui-cidade"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                    <a href="altera-cidade/{{ cidades.id }}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-cidade/{{ cidades.id }}"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
         <tfoot>
-            <td colspan="3" align="right"><label>Total de Registro: {{total}}</label></td>
+            <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
         </tfoot>
     </table>
     {% else %}

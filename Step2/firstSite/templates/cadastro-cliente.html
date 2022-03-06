@@ -7,26 +7,33 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Cadastro de Clientes</label></h1>
     </div>
-    <form action="">
+    <form method="post" action="">
+      {% csrf_token %}
         <div class="mb-3">
           <label for="textNome" class="form-label text-primary">Nome</label>
-          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome">
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome">
         </div>
         <div class="mb-3">
           <label for="textEmail" class="form-label text-primary">Email</label>
-          <input type="email" class="form-control" id="textEmail" placeholder="nome@exemplo.com">
+          <input type="email" class="form-control" id="textEmail" name="email" placeholder="nome@exemplo.com">
         </div>
         <div class="mb-3">
             <label for="textDataNasc" class="form-label text-primary">Data de Nascimento</label>
-            <input type="date" class="form-control" id="textDataNasc" placeholder="00/00/0000">
+            <input type="date" class="form-control" id="textDataNasc" name="data_nasc" placeholder="00/00/0000">
         </div>
         <div class="mb-3">
             <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
-            <input type="number" class="form-control" id="textCpfCnpj" placeholder="000.000.000-00">
+            <select class="form-select" id="textCpfCnpj" name="cpfcnpj">
+              <option value="0">Selecione</optlion>
+              {% for cpfs in cpfcnpj %}
+                <option value="{{ cpfs.id }}">{{ cpfs.valor }}</optlion>
+              {% endfor %}
+            </select>
         </div>
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
-          <select class="form-select" name="textCidade" id="textCidade">
+          <select class="form-select" id="textCidade" name="cidade">
+            <option value="0">Selecione</optlion>
             {% for cidades in cidade %}
               <option value="{{ cidades.id }}">{{ cidades.nome }}</optlion>
             {% endfor %}
@@ -34,29 +41,32 @@
         </div>
         <div class="mb-3">
           <label for="textGenero" class="form-label text-primary">Genero</label>
-          <select class="form-select" name="textGenero" id="textGenero">
+          <select class="form-select" id="textGenero" name="genero">
+            <option value="0">Selecione</optlion>
             <option value="M">Masculino</optlion>
             <option value="F">Feminino</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="textProfissao" class="form-label text-primary">Profissão</label>
-          <input type="text" class="form-control" id="textProfissao" placeholder="Informe a Profissão">
+          <input type="text" class="form-control" id="textProfissao" name="profissao" placeholder="Informe a Profissão">
         </div>
         <div class="mb-3">
           <label for="textRenda" class="form-label text-primary">Renda</label>
-          <input type="text" class="form-control" id="textRenda" placeholder="00,00">
+          <input type="text" class="form-control" id="textRenda" name="renda" placeholder="00,00">
         </div>
         <div class="mb-3">
           <label for="textCarro" class="form-label text-primary">Tem Carro?</label>
-          <select class="form-select" name="textCarro" id="textCarro">
+          <select class="form-select" id="textCarro" name="carro" >
+            <option value="0">Selecione</optlion>
             <option value="S">Sim</option>
             <option value="N">Não</option>
           </select>
         </div>
         <div class="mb-3">
           <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
-          <select class="form-select" name="textEstadoCivil" id="textEstadoCivil">
+          <select class="form-select" id="textEstadoCivil" name="estado_civil">
+            <option value="0">Selecione</optlion>
             <option value="1">Soleiro(a)</option>
             <option value="2">Casado(a)</option>
             <option value="3">Divorciado(a)</option>
@@ -67,7 +77,8 @@
         </div>
         <div class="mb-3">
           <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
-          <select class="form-select" name="textFilho" id="textFilho">
+          <select class="form-select" id="textFilho" name="filho">
+            <option value="0">Selecione</optlion>
             <option value="S">Sim</option>
             <option value="N">Não</option>
           </select>

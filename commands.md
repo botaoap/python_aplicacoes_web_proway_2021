@@ -13,6 +13,6 @@
 ### CMD Setp2
 1. `python3 manage.py` Verificar quais comandos estao disponiveis
 2. `python3 manage.py startapp produto` Criar um App
-3. `python3 manage.py makemigration` Inserir o App na Core
+3. `python3 manage.py makemigrations` Inserir o App na Core
 4. `python3 manage.py migrate` Validar Insercao do App na Core
 5. 

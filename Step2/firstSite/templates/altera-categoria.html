@@ -7,12 +7,13 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Alterar Serviços</label></h1>
     </div>
-    <form action="">
+    <form method="post" action="">
+      {% csrf_token %}
         <div class="mb-3">
           <label for="textNome" class="form-label text-primary">Nome</label>
-          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome">
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome" value="{{ categoria.nome }}">
         </div>
-        <input class="btn btn-primary" type="submit" value="Cadastrar" />
+        <input class="btn btn-primary" type="submit" value="Alterar" />
         <input class="btn btn-danger" type="reset" value="Cancel" />
       </form>
 </div>

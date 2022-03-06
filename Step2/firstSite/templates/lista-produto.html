@@ -28,8 +28,8 @@
                 <td>{{ produtos.nome }}</td>
                 <td>{{ produtos.valor }}</td>
                 <td align="right">
-                    <a href="altera-produto"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <a href="exclui-produto"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                    <a href="altera-produto/{{ produtos.id }}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-produto/{{ produtos.id }}"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
             {% endfor %}

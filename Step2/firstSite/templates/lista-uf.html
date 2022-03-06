@@ -28,14 +28,14 @@
                 <td>{{ ufs.nome }}</td>
                 <td>{{ ufs.sigla }}</td>
                 <td align="right">
-                    <a href="altera-uf"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <a href="exclui-uf"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                    <a href="altera-uf/{{ ufs.id }}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-uf/{{ ufs.id }}"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
         <tfoot>
-            <td colspan="3" align="right"><label>Total de Registro: 0</label></td>
+            <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
         </tfoot>
     </table>
     {% else %}
