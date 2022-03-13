@@ -48,7 +48,7 @@ urlpatterns = [
     path('altera-cidade/<int:id>', altera_cidade),
     path('altera-categoria/<int:id>', altera_categoria),
     path('exclui-produto/<int:id>', exclui_produto),
-    path('exclui-cliente', exclui_cliente),
+    path('exclui-cliente/<int:id>', exclui_cliente),
     path('exclui-servico/<int:id>', exclui_servico),
     path('exclui-tp-pessoa/<int:id>', exclui_tp_pessoa),
     path('exclui-uf/<int:id>', exclui_uf),

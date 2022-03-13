@@ -26,8 +26,8 @@
             <tr>
                 <td>{{ clientes.nome }}</td>
                 <td align="right">
-                    <a href="altera-cliente"><input type="button" class="btn btn-warning" value="Alterar"></a>
-                    <a href="exclui-cliente"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                    <a href="altera-cliente/{{ clientes.id}}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-cliente/{{ clientes.id}}"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
             </tr>
             {% endfor %}

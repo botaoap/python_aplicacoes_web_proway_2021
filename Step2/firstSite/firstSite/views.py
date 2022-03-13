@@ -222,8 +222,14 @@ def exclui_produto(request, id):
         {'produto': produto, 'categoria': categoria}
     )
 
-def exclui_cliente(request):
-    return render(request,'exclui-cliente.html')
+def exclui_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cpfcnpj = CPFCNPJ.objects.get(cliente.cpfcnpj_id)
+    if request.method == 'POST':
+        cliente.delete()
+        return redirect(lista_cliente)
+
+    return render(request,'exclui-cliente.html', {'cliente': cliente, 'cpfcnpj': cpfcnpj})
 
 def exclui_servico(request, id):
     service = Servico.objects.get(id=id)
