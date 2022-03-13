@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Alterar Cliente{% endblock %}
+
+{% block corpo %}
+<div id="conteudo-dados" >
+    <div style="display: flex; justify-content: center;">
+        <h1><label class='text-primary'>Alteração de Cliente</label></h1>
+    </div>
+    <form method="post" action="">
+        <div class="mb-3">
+            <label for="txtNome" class="form-label text-primary">Nome</label>
+            <input type="text" class="form-control" id="txtNome" placeholder="Informe seu nome" required value="{{ cliente.nome }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="txtEmail" class="form-label text-primary">E-mail</label>
+            <input type="email" class="form-control" name="txtEmail" id="txtEmail"
+            placeholder="usuario@provedor.com.br" required value="{{ cliente.email }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="txtDtNascimento" class="form-label text-primary">Data Nascimento</label>
+            <input type="date" class="form-control" name="txtDtNascimento" id="txtDtNascimento" required value="{{ cliente.nasc }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="txtCPFCNPJ" class="form-label text-primary">CPF/CNPJ</label>
+            <input type="text" class="form-control" name="txtCPFCNPJ" id="txtCPFCNPJ"
+            placeholder="Somente números" required value="{{ cliente.cpfcnpj }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="txtCidade" class="form-label text-primary">Cidade</label>
+            <select name="txtCidade" id="txtCidade" class="form-select">
+                {% for ciaddes in cidade %}
+                <option value="{{ ciaddes.id }}">ciaddes.nome</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtSexo" class="form-label text-primary">Sexo</label>
+            <select name="txtSexo" id="txtSexo" class="form-select">
+                {% if cliente.sexo == 'M' %}
+                    <option value="M" selected>Masculino</option>
+                {% else %}
+                    <option value="F">Feminino</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtProfissao" class="form-label text-primary">Profissão</label>
+            <input type="text" class="form-control" id="txtProfissao" placeholder="Informe sua Profissão" required value="{{ cliente.profissao }}"/>
+        </div>
+        <div class="mb-3">
+            <label for="txtCarro" class="form-label text-primary">Possui Carro</label>
+            <select name="txtSexo" id="txtCarro" class="form-select">
+                {% if cliente.carro == 'S' %}
+                    <option value="S" selected>Sim</option>
+                {% else %}
+                    <option value="N">Não</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtEstCivil" class="form-label text-primary">Estado Civil</label>
+            <select name="txtSexo" id="txtEstCivil" class="form-select">
+                <option value="1">Solteiro (a)</option>
+                <option value="2">Casado (a)</option>
+                <option value="3">Divorciado (a)</option>
+                <option value="4">Viúvo (a)</option>
+                <option value="5">Desquitado (a)</option>
+                <option value="6">União Estável (a)</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtFilhos" class="form-label text-primary">Possui Filhos</label>
+            <select name="txtSexo" id="txtFilhos" class="form-select">
+                {% if cliente.filhos == 'S' %}
+                    <option value="S" selected>Sim</option>
+                {% else %}
+                    <option value="N">Não</option>
+                {% endif %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtRenda" class="form-label text-primary">Renda</label>
+            <input type="text" class="form-control" id="txtRenda" placeholder="Informe sua Renda" required value="{{ cliente.renda }}"/>
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Alterar" class="btn btn-warning" />
+            <input type="reset" value="Cancelar" class="btn btn-secondary" />
+        </div>        
+    </form>
+</div>
+{% endblock %}
