@@ -1,7 +1,10 @@
+from asyncore import read
+from curses.ascii import ETB
+from weakref import ref
 from django.shortcuts import redirect, render
-from cliente.models import Cliente, TpPessoa, UF, Cidade
+from cliente.models import Cliente, EstadoCivil, TpPessoa, UF, Cidade
 from produto.models import Produto, Servico, Categoria
-from cliente.forms import FormUF, FormCidade, FormTpPessoa, FormCliente
+from cliente.forms import FormUF, FormCidade, FormTpPessoa, FormCliente, FormEstadoCivil
 from produto.forms import FormCategoria, FormServico, FormProduto
 
 def home(request):
@@ -88,37 +91,49 @@ def lista_clientes(request):
 
 def cadastra_cliente(request):
     cidade = Cidade.objects.all().order_by('nome')
+    estadoCivil = EstadoCivil.objects.all().order_by('descricao')
     form = FormCliente(request.POST or None)
 
     if form.is_valid():
         form.save()
         return redirect(lista_clientes)
 
-    return render(request,'cadastrar-cliente.html',{'cidade' : cidade, 'form' : form})
+    return render(request,'cadastrar-cliente.html',{'form' : form, 'cidade' : cidade, 'estadoCivil': estadoCivil})
 
 def altera_cliente(request,id): 
     cliente = Cliente.objects.get(id=id)
     form = FormCliente(request.POST,instance=cliente)
     cidade = Cidade.objects.all()
     cidadeCliente = Cidade.objects.get(id=cliente.cidade_id)
+    estadoCivil = EstadoCivil.objects.all()
+    estadoCivil_id = EstadoCivil.objects.get(id=cliente.EstCivil_id)
 
     if form.is_valid():
         form.save()
         return redirect(lista_clientes)
 
-    return render(request,'alterar-cliente.html',{'form' : form, 'cidade' : cidade, 'cliente' : cliente, 'cidadeCliente' : cidadeCliente})
+    dados = {
+        'form' : form, 
+        'cidade' : cidade, 
+        'cliente' : cliente, 
+        'cidadeCliente' : cidadeCliente,
+        'estadoCivil': estadoCivil,
+        'estadoCivil_id': estadoCivil_id
+        }
+
+    return render(request,'alterar-cliente.html',dados)
+
 
 def exclui_cliente(request,id):
     cliente = Cliente.objects.get(id=id)
     cidade = Cidade.objects.get(id=cliente.cidade_id)
-    estadocivil = ['Solteiro(a)','Casado(a)','Divorciado(a)','Viúvo(a)','Desquitado(a)','União Estável']
-    opEstCivil = estadocivil[cliente.EstCivil-1]
+    estadocivil = EstadoCivil.objects.get(id=cliente.EstCivil_id)
 
     if request.method == 'POST':
         cliente.delete()
         return redirect(lista_clientes)
     
-    return render(request,'excluir-cliente.html',{'cliente' : cliente, 'cidade' : cidade,'CliEstCivil' : opEstCivil})
+    return render(request,'excluir-cliente.html',{'cliente' : cliente, 'cidade' : cidade,'estadocivil' : estadocivil})
 
 def lista_tipos_pessoa(request):
     tipo = TpPessoa.objects.all()
@@ -249,3 +264,37 @@ def exclui_servico(request,id):
         servico.delete()
         return redirect(lista_servicos)
     return render(request,'excluir-servico.html',{'servico' : servico})
+
+def lista_EstadoCivil(request):
+    estadoCivil = EstadoCivil.objects.all().order_by('descricao')
+    total = estadoCivil.count
+
+    return render(request, 'lista-estado-civil.html', {'estadoCivil': estadoCivil, 'total': total})
+
+def cadastra_EstadoCivil(request):
+    form = FormEstadoCivil(request.POST or None)
+
+    if form.is_valid():
+        form.save()
+        return redirect(lista_EstadoCivil)
+    
+    return render(request, 'cadastrar-estado-civil.html', {'form': form})
+
+
+def alterar_EstadoCivil(request, id):
+    estadoCivil = EstadoCivil.objects.get(id=id)
+    form = FormEstadoCivil(request.POST, instance=estadoCivil)
+
+    if form.is_valid():
+        form.save()
+        return redirect(lista_EstadoCivil)
+
+    return render(request,'alterar-estado-civil.html', {'form': form, 'estadoCivil': estadoCivil})
+
+def excluir_EstadoCivil(request, id):
+    estadoCivil = EstadoCivil.objects.get(id=id)
+    if request.method == 'POST':
+        estadoCivil.delete()
+        return redirect(lista_EstadoCivil)
+    
+    return render(request,'excluir-estado-civil.html', {'estadoCivil': estadoCivil})

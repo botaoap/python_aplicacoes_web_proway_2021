@@ -56,12 +56,9 @@
         <div class="mb-3">
             <label for="txtEstCivil" class="form-label text-primary">Estado Civil</label>
             <select name="EstCivil" id="txtEstCivil" class="form-select">
-                <option value="1">Solteiro (a)</option>
-                <option value="2">Casado (a)</option>
-                <option value="3">Divorciado (a)</option>
-                <option value="4">Viúvo (a)</option>
-                <option value="5">Desquitado (a)</option>
-                <option value="6">União Estável</option>
+                {% for opcao in estadoCivil%}
+                <option value="{{ opcao.id }}">{{ opcao.descricao }}</option>
+                {% endfor %}
             </select>
         </div>
         <div class="mb-3">

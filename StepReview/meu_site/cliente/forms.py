@@ -1,6 +1,7 @@
+from attr import field
 from django import forms
 from django.forms import ModelForm
-from .models import TpPessoa, CPFCNPJ, Cliente, UF, Cidade
+from .models import EstadoCivil, TpPessoa, CPFCNPJ, Cliente, UF, Cidade
 
 class FormCliente(ModelForm):
     class Meta:
@@ -31,3 +32,9 @@ class FormTpPessoa(ModelForm):
         model = TpPessoa
         fields = ['id','nome']
         db_table = 'tppessoa'
+
+class FormEstadoCivil(ModelForm):
+    class Meta:
+        model = EstadoCivil
+        fields = ['id', 'descricao']
+        db_table = 'EstadoCivil'

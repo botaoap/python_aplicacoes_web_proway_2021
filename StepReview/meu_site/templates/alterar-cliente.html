@@ -8,6 +8,7 @@
         <h1><label class='text-primary'>Alteração de Cliente</label></h1>
     </div>
     <form method="post" action="">
+        {% csrf_token %}
         <div class="mb-3">
             <label for="txtNome" class="form-label text-primary">Nome</label>
             <input type="text" class="form-control" id="txtNome" placeholder="Informe seu nome" required value="{{ cliente.nome }}"/>
@@ -29,8 +30,12 @@
         <div class="mb-3">
             <label for="txtCidade" class="form-label text-primary">Cidade</label>
             <select name="txtCidade" id="txtCidade" class="form-select">
-                {% for ciaddes in cidade %}
-                <option value="{{ ciaddes.id }}">ciaddes.nome</option>
+                {% for cidades in cidade %}
+                    {% if cidades.id == cidadeCliente.id %}
+                        <option value="{{ cidades.id }}" selected>{{ cidades.nome }}</option>
+                    {% else %}
+                        <option value="{{ cidades.id }}">{{ cidades.nome }}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
         </div>
@@ -40,7 +45,7 @@
                 {% if cliente.sexo == 'M' %}
                     <option value="M" selected>Masculino</option>
                 {% else %}
-                    <option value="F">Feminino</option>
+                    <option value="F" selected>Feminino</option>
                 {% endif %}
             </select>
         </div>
@@ -54,19 +59,20 @@
                 {% if cliente.carro == 'S' %}
                     <option value="S" selected>Sim</option>
                 {% else %}
-                    <option value="N">Não</option>
+                    <option value="N" selected>Não</option>
                 {% endif %}
             </select>
         </div>
         <div class="mb-3">
             <label for="txtEstCivil" class="form-label text-primary">Estado Civil</label>
             <select name="txtSexo" id="txtEstCivil" class="form-select">
-                <option value="1">Solteiro (a)</option>
-                <option value="2">Casado (a)</option>
-                <option value="3">Divorciado (a)</option>
-                <option value="4">Viúvo (a)</option>
-                <option value="5">Desquitado (a)</option>
-                <option value="6">União Estável (a)</option>
+                {% for opcao in estadoCivil %}
+                    {% if opcao.id == estadoCivil_id.id %}
+                        <option value="{{ opcao.id }}" selected>{{ opcao.descricao }}</option>
+                    {% else %}
+                        <option value="{{ opcao.id }}">{{ opcao.descricao }}</option>
+                    {% endif %}
+                {% endfor %} 
             </select>
         </div>
         <div class="mb-3">
@@ -75,7 +81,7 @@
                 {% if cliente.filhos == 'S' %}
                     <option value="S" selected>Sim</option>
                 {% else %}
-                    <option value="N">Não</option>
+                    <option value="N" selected>Não</option>
                 {% endif %}
             </select>
         </div>

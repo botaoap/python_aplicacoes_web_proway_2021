@@ -14,14 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.views.generic import TemplateView
 from .views import cadastra_cidade, cadastra_servico, home, lista_cursos, cadastra_cliente, lista_tipos_pessoa, lista_ufs, lista_cidades
 from .views import lista_clientes, lista_produtos, cadastra_produto, lista_servicos, cadastra_tipos_pessoa
 from .views import cadastra_uf, altera_cidade, altera_produto, altera_cliente, altera_servico, altera_tipos_pessoa, altera_uf
 from .views import exclui_cidade, exclui_cliente, exclui_produto, exclui_servico, exclui_tipos_pessoa, exclui_uf
 from .views import lista_categorias, altera_categoria, exclui_categoria, cadastra_categoria
-from produto import urls
+from .views import lista_EstadoCivil, alterar_EstadoCivil, cadastra_EstadoCivil, excluir_EstadoCivil
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -54,6 +54,10 @@ urlpatterns = [
     path('cadastro-cidade',cadastra_cidade),
     path('altera-cidade/<int:id>',altera_cidade),
     path('exclui-cidade/<int:id>',exclui_cidade),
+    path('lista-estado-civil',lista_EstadoCivil),
+    path('cadastro-estado-civil',cadastra_EstadoCivil),
+    path('altera-estado-civil/<int:id>',alterar_EstadoCivil),
+    path('exclui-estado-civil/<int:id>',excluir_EstadoCivil),
     path('contato',TemplateView.as_view(template_name='contato.html')),
     path('acesso',TemplateView.as_view(template_name='login.html')), 
     path('cursos',lista_cursos),

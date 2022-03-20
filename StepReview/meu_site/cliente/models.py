@@ -40,6 +40,15 @@ class Cidade(models.Model):
     def __str__(self):
         return self.nome
 
+class EstadoCivil(models.Model):
+    descricao = models.CharField(max_length=50, blank=False, null=False)
+
+    class Meta:
+        db_table = 'estado_civil'
+    
+    def __str__(self):
+        return self.descricao
+
 class Cliente(models.Model):
     SEXO = [
         ('M','Masculino'),
@@ -72,9 +81,9 @@ class Cliente(models.Model):
     profissao = models.CharField(max_length=50, null=True,blank=False)
     renda = models.DecimalField(max_digits=8,decimal_places=2, null=True,blank=False)
     carro = models.CharField(max_length=1,choices=CARRO, null=True,blank=False)
-    EstCivil = models.IntegerField(choices=ESTADO_CIVIL,default=1,null=True,blank=False)
-    filhos = models.CharField(max_length=1,choices=FILHOS,null=True,blank=False)    
-
+    EstCivil = models.OneToOneField(EstadoCivil, on_delete=models.CASCADE, blank=False, null=False) 
+    filhos = models.CharField(max_length=1,choices=FILHOS,null=True,blank=False)
+    
 
     class Meta:
         db_table = 'cliente'
