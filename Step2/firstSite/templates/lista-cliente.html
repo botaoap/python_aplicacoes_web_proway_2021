@@ -7,9 +7,11 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Lista de Clientes</label></h1>
     </div>
-    <div>
-        <a href="cadastro-cliente"><input type="button" value="Novo" class="btn btn-primary"></a>
-    </div>
+    {% if user.is_authenticated %}
+        <div>
+            <a href="cadastro-cliente"><input type="button" value="Novo" class="btn btn-primary"></a>
+        </div>
+    {% endif %}
     {% if total > 0 %}
     <table class="table table-striped">
         <thead>
@@ -18,17 +20,24 @@
             </tr>
             <tr>
                 <td><label>Nome</label></td>
+                {% if user.is_authenticated %}
                 <td colspan="2" align="right"><label>Açoes</label></td>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for clientes in cliente %}
             <tr>
                 <td>{{ clientes.nome }}</td>
+                {% if user.is_authenticated %}
                 <td align="right">
+                    <a href="detalhe-cliente/{{ clientes.id}}"><input type="button" class="btn btn-info" value="Detalhar"></a>
                     <a href="altera-cliente/{{ clientes.id}}"><input type="button" class="btn btn-warning" value="Alterar"></a>
                     <a href="exclui-cliente/{{ clientes.id}}"><input type="button" class="btn btn-danger" value="Excluir"></a>
                 </td>
+                {% else %}
+                <td>&nbsp;</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

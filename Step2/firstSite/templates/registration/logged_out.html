@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block titulo %} Login {% endblock %}
+
+{% block body %} 
+
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+      <h1 class="text-primary"><label>Login area</label></h1>
+    </div>
+    <div class="alert alert-info" role="alert">
+        <h4><label class="text-primary">Successfully logout!</label></h4>
+        <label class="text-primary">Login again! <a href="{% url 'login' %}">here</a></label>
+    </div>
+</div>
+
+{% endblock %}

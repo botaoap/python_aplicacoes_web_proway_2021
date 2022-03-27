@@ -23,27 +23,34 @@
         </div>
         <div class="mb-3">
             <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
-            <select class="form-select" id="textCpfCnpj" name="cpfcnpj">
-              <option value="0">Selecione</optlion>
-              {% for cpfs in cpfcnpj %}
-                <option value="{{ cpfs.id }}">{{ cpfs.valor }}</optlion>
-              {% endfor %}
-            </select>
+            <input type="text" name="cpfcnpj" class="form-control" id="textCpfCnpj" maxlength="11">
+                        
+        </div>
+        <div class="mb-3">
+          <label for="textCidade" class="form-label text-primary">Estado</label>
+          <select class="form-select" id="textCidade" name="cidade">
+            <option value="0">Selecione</option>
+            {% for item in estado %}
+              <option value="{{ item.id }}">{{ item.nome }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
           <select class="form-select" id="textCidade" name="cidade">
-            <option value="0">Selecione</optlion>
+            <option value="0">Selecione</option>
             {% for cidades in cidade %}
-              <option value="{{ cidades.id }}">{{ cidades.nome }}</optlion>
+            
+            <option value="{{ cidades.id }}">{{ cidades.nome }}</option>
+            
             {% endfor %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textGenero" class="form-label text-primary">Genero</label>
           <select class="form-select" id="textGenero" name="genero">
-            <option value="0">Selecione</optlion>
-            <option value="M">Masculino</optlion>
+            <option value="0">Selecione</option>
+            <option value="M">Masculino</option>
             <option value="F">Feminino</option>
           </select>
         </div>
@@ -66,19 +73,17 @@
         <div class="mb-3">
           <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
           <select class="form-select" id="textEstadoCivil" name="estado_civil">
-            <option value="0">Selecione</optlion>
-            <option value="1">Soleiro(a)</option>
-            <option value="2">Casado(a)</option>
-            <option value="3">Divorciado(a)</option>
-            <option value="4">Viuvo(a)</option>
-            <option value="5">Desquitado(a)</option>
-            <option value="6">União Estável</option>
+            <option value="0">Selecione</option>
+            
+            {% for item in estado_civil %}
+            <option value="{{ item.id }}">{{ item.descricao }}</option>
+            {% endfor %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
           <select class="form-select" id="textFilho" name="filho">
-            <option value="0">Selecione</optlion>
+            <option value="0">Selecione</option>
             <option value="S">Sim</option>
             <option value="N">Não</option>
           </select>

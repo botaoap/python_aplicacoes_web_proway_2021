@@ -7,73 +7,94 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Alterar Clientes</label></h1>
     </div>
-    <form action="">
+    <form method="post" action="">
+      {% csrf_token %}
         <div class="mb-3">
           <label for="textNome" class="form-label text-primary">Nome</label>
-          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome">
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome" value="{{ cliente.nome }}">
         </div>
         <div class="mb-3">
           <label for="textEmail" class="form-label text-primary">Email</label>
-          <input type="email" class="form-control" id="textEmail" placeholder="nome@exemplo.com">
+          <input type="email" class="form-control" id="textEmail" name="email" placeholder="nome@exemplo.com"  value="{{ cliente.email }}">
         </div>
         <div class="mb-3">
             <label for="textDataNasc" class="form-label text-primary">Data de Nascimento</label>
-            <input type="date" class="form-control" id="textDataNasc" placeholder="00/00/0000">
+            <input type="datetime" class="form-control" id="textDataNasc" name="data_nasc" placeholder="00/00/0000" value="{{ format_date }}" pattern="[0-9]{2}/[0-9]{2}/[0-9]{4}">
         </div>
         <div class="mb-3">
             <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
-            <input type="number" class="form-control" id="textCpfCnpj" placeholder="000.000.000-00">
+            <input type="text" class="form-control" id="textCpfCnpj" name="cpfcnpj" maxlength="11" value="{{ cliente.cpfcnpj}}">
         </div>
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
-          <select class="form-select" name="textCidade" id="textCidade">
-            <option value="Blumenau">Blumenau</optlion>
-            <option value="Joinvile">Joinvile</option>
-            <option value="Curitiba">Curitiba</option>
+          <select class="form-select" name="cidade" id="textCidade">
+            {% for item in cidade_all %}
+            {% if item.id == cidade_value.id %}
+            <option value="{{ item.id }}" selected>{{ item.nome }}</option>
+            {% else %}
+            <option value="{{ item.id }}" >{{ item.nome }}</option>
+            {% endif %}
+            {% endfor %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textGenero" class="form-label text-primary">Genero</label>
-          <select class="form-select" name="textGenero" id="textGenero">
-            <option value="M">Masculino</optlion>
+          <select class="form-select" name="genero" id="textGenero">
+            {% if cliente.genero == 'M' %}
+            <option value="M" selected>Masculino</option>
             <option value="F">Feminino</option>
+            {% else %}
+            <option value="M">Masculino</option>
+            <option value="F" selected>Feminino</option>
+            {% endif %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textProfissao" class="form-label text-primary">Profissão</label>
-          <input type="text" class="form-control" id="textProfissao" placeholder="Informe a Profissão">
+          <input type="text" class="form-control" id="profissao" name="profissao" placeholder="Informe a Profissão" value="{{ cliente.profissao }}">
         </div>
         <div class="mb-3">
           <label for="textRenda" class="form-label text-primary">Renda</label>
-          <input type="text" class="form-control" id="textRenda" placeholder="00,00">
+          <input type="text" class="form-control" id="textRenda" name="renda" placeholder="00,00" value="{{ cliente.renda }}">
         </div>
         <div class="mb-3">
           <label for="textCarro" class="form-label text-primary">Tem Carro?</label>
-          <select class="form-select" name="textCarro" id="textCarro">
+          <select class="form-select" name="carro" id="textCarro">
+            {% if cliente.carro == 'S' %}
+            <option value="S" selected>Sim</option>
+            <option value="N" >Não</option>
+            {% else %}
             <option value="S">Sim</option>
-            <option value="N">Não</option>
+            <option value="N" selected >Não</option>
+            {% endif %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
-          <select class="form-select" name="textEstadoCivil" id="textEstadoCivil">
-            <option value="1">Soleiro(a)</option>
-            <option value="2">Casado(a)</option>
-            <option value="3">Divorciado(a)</option>
-            <option value="4">Viuvo(a)</option>
-            <option value="5">Desquitado(a)</option>
-            <option value="6">União Estável</option>
+          <select class="form-select" name="estado_civil" id="textEstadoCivil">
+            {% for item in estado_civil_all %}
+            {% if item.id == estado_civil_value.id %}
+            <option value="{{ item.id }}" selected>{{ item.descricao }}</option>
+            {% else %}
+            <option value="{{ item.id }}">{{ item.descricao }} </option>
+            {% endif %}
+            {% endfor %}
           </select>
         </div>
         <div class="mb-3">
           <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
-          <select class="form-select" name="textFilho" id="textFilho">
+          <select class="form-select" name="filho" id="textFilho">
+            {% if cliente.filhos == 'S' %}
+            <option value="S" selected>Sim</option>
+            <option value="N" >Não</option>
+            {% else %}
             <option value="S">Sim</option>
-            <option value="N">Não</option>
+            <option value="N" selected >Não</option>
+            {% endif %}
           </select>
         </div>
         <div style="margin-bottom: 2%;">
-          <input class="btn btn-primary" type="submit" value="Cadastrar" />
+          <input class="btn btn-primary" type="submit" value="Alterar" />
           <input class="btn btn-danger" type="reset" value="Cancel" />
         </div>
       </form>

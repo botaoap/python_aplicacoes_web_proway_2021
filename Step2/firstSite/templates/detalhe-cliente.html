@@ -1,13 +1,16 @@
 {% extends 'base.html'%}
 
-{% block titulo %}Excluir Clientes{% endblock %}
+{% block titulo %}Detalhe do Clientes{% endblock %}
 
 {% block body %}
 <div id="content-data">
     <div style="display: flex; justify-content: center;">
-        <h1 class="text-primary"><label>Excluir Clientes</label></h1>
+        <h1 class="text-primary"><label>Detalhe do Clientes</label></h1>
     </div>
-    <form method="post" action="">
+    <div class="mb-3">
+      <button class="btn btn-primary" onclick="redirection('{% url 'lista-cliente' %}')">Voltar</button>
+    </div>
+    <div style="margin-bottom: 2%;">
       {% csrf_token %}
         <div class="mb-3">
           <label for="textNome" class="form-label text-primary">Nome</label>
@@ -23,7 +26,7 @@
         </div>
         <div class="mb-3">
             <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
-            <input type="number" class="form-control" id="textCpfCnpj" placeholder="000.000.000-00" readonly value="{{ cliente.cpfcnpj }}">
+            <input type="text" name="cpfcnpj" class="form-control" id="textCpfCnpj" maxlength="11" value="{{ cliente.cpfcnpj}}" readonly>
         </div>
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
@@ -67,10 +70,6 @@
             <input type="text" class="form-control" id="txtFilhos" name="filhos" value="Não" readonly />
             {% endif %}
         </div>
-        <div style="margin-bottom: 2%;">
-          <input class="btn btn-danger" type="submit" value="Excluir" />
-          <input class="btn btn-primary" type="reset" value="Cancel" />
-        </div>
-      </form>
+    </div>
 </div>
 {% endblock %}

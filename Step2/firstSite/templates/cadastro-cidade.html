@@ -16,6 +16,7 @@
         <div class="mb-3">
           <label for="textUf" class="form-label text-primary">Sigla</label>
           <select class="form-select" id="textUf" name="uf">
+            <option value="0" selected>Selecione</optlion>
             {% for ufs in uf %}
               <option value="{{ ufs.id }}">{{ ufs.sigla }}</optlion>
             {% endfor %}
