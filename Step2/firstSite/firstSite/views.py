@@ -1,10 +1,6 @@
-from ast import Is
-from math import prod
-import os
-from re import U
-from django.forms import all_valid
 from django.shortcuts import redirect, render
-from cliente.models import TpPessoa, CPFCNPJ, UF, Cidade, Cliente
+from django.contrib.auth.decorators import login_required
+from cliente.models import EstadoCivil, TpPessoa, CPFCNPJ, UF, Cidade, Cliente
 from produto.models import Categoria, Produto, Servico
 from cliente.forms import FormCidade, FormCliente, FormCPFCNPJ, FormTpPessoa, FormUF
 from produto.forms import FormCategoria, FormProduto, FormServico
@@ -12,6 +8,7 @@ from produto.forms import FormCategoria, FormProduto, FormServico
 def home(request):
     return render(request,'home.html')
 # ------ LISTAS ------
+@login_required
 def lista_produto(request):
     produto = Produto.objects.all()
     total = produto.count
@@ -22,11 +19,13 @@ def lista_cliente(request):
     total = cliente.count
     return render(request,'lista-cliente.html', {'cliente': cliente, 'total': total})
 
+@login_required
 def lista_servico(request):
     servico = Servico.objects.all()
     total = servico.count
     return render(request,'lista-servico.html', {'servico': servico, 'total': total})
 
+@login_required
 def lista_tp_pessoa(request):
     tp_pessoa = TpPessoa.objects.all()
     total = tp_pessoa.count
@@ -36,17 +35,20 @@ def lista_tp_pessoa(request):
         {'tp_pessoa' : tp_pessoa, 'total': total}
     )
 
+@login_required
 def lista_uf(request):
     uf = UF.objects.all()
     total = uf.count
     return render(request,'lista-uf.html', {'uf': uf, 'total': total})
 
+@login_required
 def lista_cidade(request):
     cidade = Cidade.objects.all().order_by('nome')
     total = cidade.count
 
     return render(request,'lista-cidade.html', {'cidade': cidade, 'total': total})
 
+@login_required
 def lista_categoria(request):
     categoria = Categoria.objects.all()
     total = categoria.count
@@ -57,6 +59,7 @@ def lista_categoria(request):
     )
 
 # ------ CADASTROS ------
+@login_required
 def cadastro_produto(request):
     categoria = Categoria.objects.all()
     form = FormProduto(request.POST or None)
@@ -70,10 +73,14 @@ def cadastro_produto(request):
         {'categoria': categoria, 'form': form}
     )
 
+@login_required
 def cadastro_cliente(request):
     cidade = Cidade.objects.all().order_by('nome')
     cpfcnpj = CPFCNPJ.objects.all()
+    estado_civil = EstadoCivil.objects.all()
+    estado = UF.objects.all()
     form = FormCliente(request.POST or None)
+    
     if form.is_valid():
         form.save()
         return redirect(lista_cliente)
@@ -81,9 +88,16 @@ def cadastro_cliente(request):
     return render(
         request,
         'cadastro-cliente.html', 
-        {'cidade': cidade, 'cpfcnpj': cpfcnpj, 'form': form}
+        {
+            'cidade': cidade, 
+            'cpfcnpj': cpfcnpj, 
+            'estado_civil': estado_civil,
+            'estado': estado,
+            'form': form
+        }
     )
 
+@login_required
 def cadastro_servico(request):
     form = FormServico(request.POST or None)
     if form.is_valid():
@@ -92,6 +106,7 @@ def cadastro_servico(request):
 
     return render(request,'cadastro-servico.html', {'form': form})
 
+@login_required
 def cadastro_tp_pessoa(request):
     form = FormTpPessoa(request.POST or None)
     if form.is_valid():
@@ -100,6 +115,7 @@ def cadastro_tp_pessoa(request):
 
     return render(request,'cadastro-tp-pessoa.html', {'form': form})
 
+@login_required
 def cadastro_uf(request):
     form = FormUF(request.POST or None)
     if form.is_valid():
@@ -108,6 +124,7 @@ def cadastro_uf(request):
 
     return render(request,'cadastro-uf.html', {'form': form})
 
+@login_required
 def cadastro_cidade(request):
     uf = UF.objects.all()
 
@@ -118,6 +135,7 @@ def cadastro_cidade(request):
 
     return render(request,'cadastro-cidade.html', {'uf': uf, 'form': form})
 
+@login_required
 def cadastro_categoria(request):
     form = FormCategoria(request.POST or None)
     if form.is_valid():
@@ -127,6 +145,7 @@ def cadastro_categoria(request):
     return render(request,'cadastro-categoria.html', {'form': form})
 
 # ------ ALTERA ------
+@login_required
 def altera_produto(request,id):
     produto = Produto.objects.get(id=id)
     all_categoria = Categoria.objects.all()
@@ -147,9 +166,32 @@ def altera_produto(request,id):
         }
     )
 
-def altera_cliente(request):
-    return render(request,'altera-cliente.html')
+@login_required
+def altera_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cidade_all = Cidade.objects.all()
+    cidade_value = Cidade.objects.get(id=cliente.cidade_id)
+    estado_civil_all = EstadoCivil.objects.all()
+    estado_civil_value = EstadoCivil.objects.get(id=cliente.estado_civil_id)
+    format_date = cliente.data_nasc.strftime('%d/%m/%Y')
+    form = FormCliente(request.POST, instance=cliente)
 
+    if form.is_valid():
+        form.save()
+        return redirect(lista_cliente)
+
+    dados = {
+        'cliente': cliente,
+        'cidade_all': cidade_all,
+        'cidade_value': cidade_value,
+        'estado_civil_all': estado_civil_all,
+        'estado_civil_value': estado_civil_value,
+        'format_date': format_date,
+        'form': form
+    }
+    return render(request,'altera-cliente.html', dados)
+
+@login_required
 def altera_servico(request, id):
     servico = Servico.objects.get(id=id)
     form = FormServico(request.POST, instance=servico)
@@ -159,6 +201,7 @@ def altera_servico(request, id):
 
     return render(request,'altera-servico.html', {'servico': servico, 'form': form})
 
+@login_required
 def altera_tp_pessoa(request, id):
     tp_pessoa = TpPessoa.objects.get(id=id)
     form = FormTpPessoa(request.POST, instance=tp_pessoa)
@@ -168,6 +211,7 @@ def altera_tp_pessoa(request, id):
 
     return render(request,'altera-tp-pessoa.html', {'tp_pessoa': tp_pessoa, 'form': form})
 
+@login_required
 def altera_uf(request, id):
     uf = UF.objects.get(id=id)
     form = FormUF(request.POST, instance=uf)
@@ -177,6 +221,7 @@ def altera_uf(request, id):
 
     return render(request,'altera-uf.html', {'uf': uf, 'form': form})
 
+@login_required
 def altera_cidade(request, id):
     cidade = Cidade.objects.get(id=id)
     uf = UF.objects.get(id=cidade.uf_id)
@@ -198,7 +243,7 @@ def altera_cidade(request, id):
         }
     )
 
-
+@login_required
 def altera_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     form = FormCategoria(request.POST, instance=categoria)
@@ -209,6 +254,8 @@ def altera_categoria(request, id):
     return render(request,'altera-categoria.html', {'categoria': categoria, 'form': form})
 
 # ------ EXCLUI ------
+
+@login_required
 def exclui_produto(request, id):
     produto = Produto.objects.get(id=id)
     categoria = Categoria.objects.get(id=produto.categoria_id)
@@ -222,15 +269,29 @@ def exclui_produto(request, id):
         {'produto': produto, 'categoria': categoria}
     )
 
+@login_required
 def exclui_cliente(request, id):
     cliente = Cliente.objects.get(id=id)
-    cpfcnpj = CPFCNPJ.objects.get(cliente.cpfcnpj_id)
+    cidade_all = Cidade.objects.all()
+    cidade_value = Cidade.objects.get(id=cliente.cidade_id)
+    estado_civil_all = EstadoCivil.objects.all()
+    estado_civil_value = EstadoCivil.objects.get(id=cliente.estado_civil_id)
+    
     if request.method == 'POST':
         cliente.delete()
         return redirect(lista_cliente)
 
-    return render(request,'exclui-cliente.html', {'cliente': cliente, 'cpfcnpj': cpfcnpj})
+    dados = {
+        'cliente': cliente, 
+        'cidade_all': cidade_all,
+        'cidade_value': cidade_value,
+        'estado_civil_all': estado_civil_all,
+        'estado_civil_value': estado_civil_value
+        }
 
+    return render(request,'exclui-cliente.html',dados)
+
+@login_required
 def exclui_servico(request, id):
     service = Servico.objects.get(id=id)
     if request.method == 'POST':
@@ -239,6 +300,7 @@ def exclui_servico(request, id):
 
     return render(request,'exclui-servico.html', {'service': service})
 
+@login_required
 def exclui_tp_pessoa(request, id):
     tp_pessoa = TpPessoa.objects.get(id=id)
     if request.method == 'POST':
@@ -247,6 +309,7 @@ def exclui_tp_pessoa(request, id):
 
     return render(request,'exclui-tp-pessoa.html', {'tp_pessoa': tp_pessoa})
 
+@login_required
 def exclui_uf(request,id):
     uf = UF.objects.get(id=id)
     if request.method == 'POST':
@@ -255,6 +318,7 @@ def exclui_uf(request,id):
 
     return render(request,'exclui-uf.html',{'uf': uf})
 
+@login_required
 def exclui_cidade(request, id):
     cidade = Cidade.objects.get(id=id)
     uf = UF.objects.get(id=cidade.uf_id)
@@ -264,6 +328,7 @@ def exclui_cidade(request, id):
 
     return render(request,'exclui-cidade.html', {'cidade': cidade, 'uf': uf})
 
+@login_required
 def exclui_categoria(request, id):
     categoria = Categoria.objects.get(id=id)
     if request.method == 'POST':
@@ -271,3 +336,31 @@ def exclui_categoria(request, id):
         return redirect(lista_categoria)
 
     return render(request,'exclui-categoria.html', {'categoria': categoria})
+
+# ------ DETALHE ------
+def detalhe_cliente(request, id):
+    cliente = Cliente.objects.get(id=id)
+    cidade_all = Cidade.objects.all()
+    cidade_value = Cidade.objects.get(id=cliente.cidade_id)
+    estado_civil_all = EstadoCivil.objects.all()
+    estado_civil_value = EstadoCivil.objects.get(id=cliente.estado_civil_id)
+
+    dados = {
+        'cliente': cliente, 
+        'cidade_all': cidade_all,
+        'cidade_value': cidade_value,
+        'estado_civil_all': estado_civil_all,
+        'estado_civil_value': estado_civil_value
+        }
+
+    return render(request,'detalhe-cliente.html',dados)
+
+# ------ CUSTOM VIEWS ------
+
+def getCityOfState(state_id):
+    estado = UF.objects.get(id=state_id)
+    cidade_all = Cidade.objects.all()
+    cidade_estado = Cidade.objects.get(id=cidade_all.uf_id)
+
+    if (estado.id == cidade_estado.id):
+        return cidade_estado.nome
