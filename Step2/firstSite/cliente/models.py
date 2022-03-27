@@ -5,7 +5,7 @@ class TpPessoa(models.Model):
     nome = models.CharField(max_length=50, blank=False, null=False, unique=True)
 
     class Meta:
-        db_table = 'TpPessoa'
+        db_table = 'tp_pessoa'
     
     def __str__(self):
         return self.nome
@@ -15,7 +15,7 @@ class CPFCNPJ(models.Model):
     tipo = models.ForeignKey(TpPessoa, on_delete=models.CASCADE,default=1)
 
     class Meta:
-        db_table = 'CPFCNPJ'
+        db_table = 'cpf_cnpj'
     
     def __str__(self):
         return self.valor
@@ -25,7 +25,7 @@ class UF(models.Model):
     sigla = models.CharField(max_length=2, unique=True, blank=False, null=False)
 
     class Meta:
-        db_table = 'UF'
+        db_table = 'uf'
     
     def __str__(self):
         return self.sigla
@@ -35,10 +35,19 @@ class Cidade(models.Model):
     uf = models.ForeignKey(UF, on_delete=models.CASCADE, blank=False, null=False)
 
     class Meta:
-        db_table = 'Cidade'
+        db_table = 'cidade'
     
     def __str__(self):
         return self.nome
+    
+class EstadoCivil(models.Model):
+    descricao = models.CharField(max_length=50, blank=False, null=False)
+
+    class Meta:
+        db_table = 'estado_civil'
+    
+    def __str__(self):
+        return self.descricao
 
 class Cliente(models.Model):
     GENDER = [
@@ -63,15 +72,15 @@ class Cliente(models.Model):
         ('N','Não')
     ]
     nome = models.CharField(max_length=50, blank=False, null=False)
-    email = models.CharField(max_length=100, blank=True, null=True)
-    data_nasc = models.DateField(null=True, blank=True)
-    cpfcnpj = models.OneToOneField(CPFCNPJ, on_delete=models.CASCADE, blank=False, null=False)
-    cidade = models.ManyToManyField(Cidade)
+    email = models.CharField(max_length=100, blank=False, null=True)
+    data_nasc = models.DateField(null=False, blank=False)
+    cpfcnpj = models.CharField(max_length=11, blank=False, null=False)
+    cidade = models.ForeignKey(Cidade,on_delete=models.CASCADE)
     genero = models.CharField(max_length=1,choices=GENDER, null=True,  blank=True)
-    profissao = models.CharField(max_length=50,null=True,  blank=True)
-    renda = models.DecimalField(max_digits=8, decimal_places=2,null=True,  blank=True)
+    profissao = models.CharField(max_length=50,null=True,  blank=False)
+    renda = models.DecimalField(max_digits=8, decimal_places=2,null=False,  blank=False)
     carro = models.CharField(max_length=1,choices=CAR,null=True,  blank=True)
-    estado_civil = models.IntegerField(choices=CIVIL_STATE, default=1, null=True,  blank=True)
+    estado_civil = models.ForeignKey(EstadoCivil, on_delete=models.CASCADE, blank=False, null=False) #models.OneToOneField(EstadoCivil, on_delete=models.CASCADE, blank=False, null=False) 
     filho = models.CharField(max_length=1,choices=CHILD, null=True,  blank=True)
 
     class Meta:
