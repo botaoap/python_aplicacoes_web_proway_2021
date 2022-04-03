@@ -11,52 +11,112 @@ def home(request):
 # ------ LISTAS ------
 @login_required
 def lista_produto(request):
-    produto = Produto.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+
+    if search:
+        produto = Produto.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        produto = Produto.objects.all()
+
     total = produto.count
-    return render(request,'lista-produto.html', {'produto': produto, 'total': total})
+    return render(request,'lista-produto.html', {'produto': produto, 'total': total, 'hasSearch': hasSearch})
 
 def lista_cliente(request):
-    cliente = Cliente.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+    
+    if search:
+        cliente = Cliente.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        cliente = Cliente.objects.all()
+    
     total = cliente.count
-    return render(request,'lista-cliente.html', {'cliente': cliente, 'total': total})
+    return render(request,'lista-cliente.html', {'cliente': cliente, 'total': total, 'hasSearch': hasSearch})
 
 @login_required
 def lista_servico(request):
-    servico = Servico.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+
+    if search:
+        servico = Servico.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        servico = Servico.objects.all()
+
     total = servico.count
-    return render(request,'lista-servico.html', {'servico': servico, 'total': total})
+    return render(request,'lista-servico.html', {'servico': servico, 'total': total, 'hasSearch': hasSearch})
 
 @login_required
 def lista_tp_pessoa(request):
-    tp_pessoa = TpPessoa.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+
+    if search:
+        tp_pessoa = TpPessoa.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        tp_pessoa = TpPessoa.objects.all()
+
     total = tp_pessoa.count
     return render(
         request,
         'lista-tp-pessoa.html', 
-        {'tp_pessoa' : tp_pessoa, 'total': total}
+        {'tp_pessoa' : tp_pessoa, 'total': total, 'hasSearch': hasSearch}
     )
 
 @login_required
 def lista_uf(request):
-    uf = UF.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+
+    if search:
+        uf = UF.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        uf = UF.objects.all()
+
     total = uf.count
-    return render(request,'lista-uf.html', {'uf': uf, 'total': total})
+    return render(request,'lista-uf.html', {'uf': uf, 'total': total, 'hasSearch': hasSearch})
 
 @login_required
 def lista_cidade(request):
-    cidade = Cidade.objects.all().order_by('nome')
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+    uf = UF.objects.all()
+
+    if search:
+        cidade = Cidade.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        cidade = Cidade.objects.all().order_by('nome')
+
     total = cidade.count
 
-    return render(request,'lista-cidade.html', {'cidade': cidade, 'total': total})
+    return render(
+        request,
+        'lista-cidade.html', 
+        {'cidade': cidade, 'total': total, 'hasSearch': hasSearch, 'uf': uf})
 
 @login_required
 def lista_categoria(request):
-    categoria = Categoria.objects.all()
+    search = request.GET.get('txtSearch')
+    hasSearch = False
+    
+    if search:
+        categoria = Categoria.objects.filter(nome__icontains=search)
+        hasSearch = True
+    else:
+        categoria = Categoria.objects.all() 
+    
     total = categoria.count
     return render(
         request, 
         'lista-categoria.html', 
-        {'categoria': categoria, 'total': total}
+        {'categoria': categoria, 'total': total, 'hasSearch': hasSearch}
     )
 
 # ------ CADASTROS ------

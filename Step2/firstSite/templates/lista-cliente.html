@@ -7,6 +7,7 @@
     <div style="display: flex; justify-content: center;">
         <h1 class="text-primary"><label>Lista de Clientes</label></h1>
     </div>
+    {% include 'search.html' %}
     {% if user.is_authenticated %}
         <div>
             <a href="cadastro-cliente"><input type="button" value="Novo" class="btn btn-primary"></a>
@@ -45,6 +46,8 @@
             <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
         </tfoot>
     </table>
+    {% elif hasSearch %}
+    {% include 'search-error.html' %}
     {% else %}
     {% include 'sem-itens.html' %}
     {% endif %}
