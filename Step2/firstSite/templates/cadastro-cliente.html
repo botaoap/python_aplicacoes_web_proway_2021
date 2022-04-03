@@ -38,12 +38,7 @@
         <div class="mb-3">
           <label for="textCidade" class="form-label text-primary">Cidade</label>
           <select class="form-select" id="textCidade" name="cidade">
-            <option value="0">Selecione</option>
-            {% for cidades in cidade %}
-            
-            <option value="{{ cidades.id }}">{{ cidades.nome }}</option>
-            
-            {% endfor %}
+            <option value="0">Selecione o Estado</option>
           </select>
         </div>
         <div class="mb-3">
