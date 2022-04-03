@@ -21,7 +21,7 @@ from .views import home, lista_cidade, lista_tp_pessoa, lista_uf, lista_cliente,
 from .views import cadastro_cliente, cadastro_produto, cadastro_cidade, cadastro_servico, cadastro_tp_pessoa, cadastro_uf, cadastro_categoria
 from .views import altera_cidade, altera_cliente, altera_produto, altera_servico, altera_tp_pessoa, altera_uf, altera_categoria
 from .views import exclui_cidade, exclui_cliente, exclui_produto, exclui_servico, exclui_tp_pessoa, exclui_uf, exclui_categoria
-from .views import detalhe_cliente
+from .views import detalhe_cliente, getCity, getIdOfCity
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', home, name='home'),
@@ -58,5 +58,7 @@ urlpatterns = [
     path('exclui-cidade/<int:id>', exclui_cidade),
     path('exclui-categoria/<int:id>', exclui_categoria),
     path('detalhe-cliente/<int:id>', detalhe_cliente),
+    path('getCity/<int:id>', getCity),
+    path('getIdOfCity/<str:nome>', getIdOfCity),
     path('', home),
 ]

@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from cliente.models import EstadoCivil, TpPessoa, CPFCNPJ, UF, Cidade, Cliente
@@ -338,6 +339,7 @@ def exclui_categoria(request, id):
     return render(request,'exclui-categoria.html', {'categoria': categoria})
 
 # ------ DETALHE ------
+@login_required
 def detalhe_cliente(request, id):
     cliente = Cliente.objects.get(id=id)
     cidade_all = Cidade.objects.all()
@@ -356,11 +358,14 @@ def detalhe_cliente(request, id):
     return render(request,'detalhe-cliente.html',dados)
 
 # ------ CUSTOM VIEWS ------
+@login_required
+def getCity(request, id):
+    cidade = [cidade for cidade in Cidade.objects.filter(uf_id=id)]
+    
+    return HttpResponse(str(cidade))
+    
+@login_required
+def getIdOfCity(request, nome):
+    cidade_id = [cidade.id for cidade in Cidade.objects.filter(nome=nome)]
 
-def getCityOfState(state_id):
-    estado = UF.objects.get(id=state_id)
-    cidade_all = Cidade.objects.all()
-    cidade_estado = Cidade.objects.get(id=cidade_all.uf_id)
-
-    if (estado.id == cidade_estado.id):
-        return cidade_estado.nome
+    return HttpResponse(str(cidade_id))

@@ -27,8 +27,8 @@
                         
         </div>
         <div class="mb-3">
-          <label for="textCidade" class="form-label text-primary">Estado</label>
-          <select class="form-select" id="textCidade" name="cidade">
+          <label for="textEstado" class="form-label text-primary">Estado</label>
+          <select class="form-select" id="textEstado" name="cidade">
             <option value="0">Selecione</option>
             {% for item in estado %}
               <option value="{{ item.id }}">{{ item.nome }}</option>
@@ -93,5 +93,28 @@
           <input class="btn btn-danger" type="reset" value="Cancel" />
         </div>
       </form>
+      <script>
+        $('#textEstado').on('change', function(){
+          // alert($(this).val())
+          $('#textCidade').empty();
+          $('#textCidade').append('<option value="0" selected>Selecione</option>')
+          $.get('getCity/' + $(this).val(), function(cityResponse){
+            var response = cityResponse.replaceAll('[', '').replaceAll(']', '').replaceAll('<Cidade:','').replaceAll('>','').replaceAll('<','');
+            response = response.split(',')
+            
+            for (x = 0; x < response.length; x++){
+              // console.log(response[x].trim())
+              getId(response[x].trim())        
+            }
+          });
+          function getId(cityName) {
+            $.get('getIdOfCity/' + cityName.trim(), function(idResponse){
+                var ajustResponse = idResponse.trim().replaceAll('[','').replaceAll(']','')
+                $('#textCidade').append('<option value="'+ ajustResponse +'">' 
+                + cityName + '</option>');
+            }); 
+          };
+        });
+      </script>
 </div>
 {% endblock %}
