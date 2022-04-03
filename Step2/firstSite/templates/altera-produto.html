@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Alterar Produtos{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Alterar de Produtos</label></h1>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome" value="{{ produto.nome }}">
+        </div>
+        <div class="mb-3">
+          <label for="textValor" class="form-label text-primary">Valor</label>
+          <input type="text" class="form-control" id="textValor" name="valor" placeholder="R$100,00" value="{{ produto.valor}}">
+        </div>
+        <div class="mb-3">
+          <label for="textCategoria" class="form-label text-primary">Categoria</label>
+          <select class="form-select" id="textCategoria" name="categoria">
+            {% for categorias in all_categoria %}
+            {% if categorias.id ==  id_categoria.id %}
+              <option value="{{ categorias.id }}" selected>{{ categorias.nome }}</optlion>
+            {% else %}
+              <option value="{{ categorias.id }}">{{ categorias.nome }}</optlion>
+            {% endif %}
+            {% endfor %}
+          </select>
+        </div>
+        <input class="btn btn-primary" type="submit" value="Alterar" />
+        <input class="btn btn-danger" type="reset" value="Cancel" />
+      </form>
+</div>
+{% endblock %}

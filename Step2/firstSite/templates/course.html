@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Courses{% endblock %}
+
+{% block body %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th colspan="3">Lista de Cursos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dataCourse in course %}
+        <tr>
+            <td>{{ dataCourse }}</td>
+            <td>Alterar</td>
+            <td>Excluir</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        
+        <tr>
+            <td align="right" colspan="3">Total de Cursos: <strong> {{ total }} </strong></td>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

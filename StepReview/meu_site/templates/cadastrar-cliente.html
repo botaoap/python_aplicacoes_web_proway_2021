@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Cadastrar Cliente{% endblock %}
+
+{% block corpo %}
+<div id="conteudo-dados" >
+    <div style="display: flex; justify-content: center;">
+        <h1><label class='text-primary'>Cadastro de Cliente</label></h1>
+    </div>
+    <form method="POST" >
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="txtNome" class="form-label text-primary">Nome</label>
+            <input type="text" class="form-control" id="txtNome" name="nome" placeholder="Informe seu nome" required />
+        </div>
+        <div class="mb-3">
+            <label for="txtEmail" class="form-label text-primary">E-mail</label>
+            <input type="email" class="form-control" name="email" id="txtEmail"
+            placeholder="usuario@provedor.com.br" required />
+        </div>
+        <div class="mb-3">
+            <label for="txtDtNascimento" class="form-label text-primary">Data Nascimento</label>
+            <input type="date" class="form-control" name="nasc" id="txtDtNascimento" required />
+        </div>
+        <div class="mb-3">
+            <label for="txtCPFCNPJ" class="form-label text-primary">CPF/CNPJ</label>
+            <input type="text" class="form-control" id="txtCPFCNPJ"
+            placeholder="Somente números" required name="cpfcnpj" maxlength="14" minlength="11" />
+        </div>
+        <div class="mb-3">
+            <label for="txtCidade" class="form-label text-primary">Cidade</label>
+            <select name="cidade" id="txtCidade" class="form-select">
+                {% for cidade in cidade %}
+                <option value="{{ cidade.id }}">{{ cidade.nome }}</option>
+                {% endfor %}                
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtSexo" class="form-label text-primary">Sexo</label>
+            <select name="sexo" id="txtSexo" class="form-select">
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtProfissao" class="form-label text-primary">Profissão</label>
+            <input type="text" name="profissao" class="form-control" id="txtProfissao" placeholder="Informe sua Profissão" required />
+        </div>
+        <div class="mb-3">
+            <label for="txtCarro" class="form-label text-primary">Possui Carro</label>
+            <select name="carro" id="txtCarro" class="form-select">
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtEstCivil" class="form-label text-primary">Estado Civil</label>
+            <select name="EstCivil" id="txtEstCivil" class="form-select">
+                {% for opcao in estadoCivil%}
+                <option value="{{ opcao.id }}">{{ opcao.descricao }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtFilhos" class="form-label text-primary">Possui Filhos</label>
+            <select name="filhos" id="txtFilhos" class="form-select">
+                <option value="S">Sim</option>
+                <option value="N">Não</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="txtRenda" class="form-label text-primary">Renda</label>
+            <input type="text" name="renda" class="form-control" id="txtRenda" placeholder="Informe sua Renda" required />
+        </div>
+        <div class="mb-3">
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+            <input type="reset" value="Cancelar" class="btn btn-secondary" />
+        </div>        
+    </form>
+</div>
+{% endblock %}

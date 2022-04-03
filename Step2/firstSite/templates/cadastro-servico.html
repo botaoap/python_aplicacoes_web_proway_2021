@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Cadastro Serviços{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Cadastro de Serviços</label></h1>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome">
+        </div>
+        <div class="mb-3">
+          <label for="textValor" class="form-label text-primary">Valor</label>
+          <input type="text" class="form-control" id="textValor" name="valor" placeholder="R$100,00">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Cadastrar" />
+        <input class="btn btn-danger" type="reset" value="Cancel" />
+      </form>
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Cadastro Clientes{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Cadastro de Clientes</label></h1>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" name="nome" placeholder="Informe seu Nome">
+        </div>
+        <div class="mb-3">
+          <label for="textEmail" class="form-label text-primary">Email</label>
+          <input type="email" class="form-control" id="textEmail" name="email" placeholder="nome@exemplo.com">
+        </div>
+        <div class="mb-3">
+            <label for="textDataNasc" class="form-label text-primary">Data de Nascimento</label>
+            <input type="date" class="form-control" id="textDataNasc" name="data_nasc" placeholder="00/00/0000">
+        </div>
+        <div class="mb-3">
+            <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
+            <input type="text" name="cpfcnpj" class="form-control" id="textCpfCnpj" maxlength="11">
+                        
+        </div>
+        <div class="mb-3">
+          <label for="textEstado" class="form-label text-primary">Estado</label>
+          <select class="form-select" id="textEstado" name="cidade">
+            <option value="0">Selecione</option>
+            {% for item in estado %}
+              <option value="{{ item.id }}">{{ item.nome }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="textCidade" class="form-label text-primary">Cidade</label>
+          <select class="form-select" id="textCidade" name="cidade">
+            <option value="0">Selecione o Estado</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="textGenero" class="form-label text-primary">Genero</label>
+          <select class="form-select" id="textGenero" name="genero">
+            <option value="0">Selecione</option>
+            <option value="M">Masculino</option>
+            <option value="F">Feminino</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="textProfissao" class="form-label text-primary">Profissão</label>
+          <input type="text" class="form-control" id="textProfissao" name="profissao" placeholder="Informe a Profissão">
+        </div>
+        <div class="mb-3">
+          <label for="textRenda" class="form-label text-primary">Renda</label>
+          <input type="text" class="form-control" id="textRenda" name="renda" placeholder="00,00">
+        </div>
+        <div class="mb-3">
+          <label for="textCarro" class="form-label text-primary">Tem Carro?</label>
+          <select class="form-select" id="textCarro" name="carro" >
+            <option value="0">Selecione</optlion>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
+          <select class="form-select" id="textEstadoCivil" name="estado_civil">
+            <option value="0">Selecione</option>
+            
+            {% for item in estado_civil %}
+            <option value="{{ item.id }}">{{ item.descricao }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
+          <select class="form-select" id="textFilho" name="filho">
+            <option value="0">Selecione</option>
+            <option value="S">Sim</option>
+            <option value="N">Não</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 2%;">
+          <input class="btn btn-primary" type="submit" value="Cadastrar" />
+          <input class="btn btn-danger" type="reset" value="Cancel" />
+        </div>
+      </form>
+      <script>
+        $('#textEstado').on('change', function(){
+          // alert($(this).val())
+          $('#textCidade').empty();
+          $('#textCidade').append('<option value="0" selected>Selecione</option>')
+          $.get('getCity/' + $(this).val(), function(cityResponse){
+            var response = cityResponse.replaceAll('[', '').replaceAll(']', '').replaceAll('<Cidade:','').replaceAll('>','').replaceAll('<','');
+            response = response.split(',')
+            
+            for (x = 0; x < response.length; x++){
+              // console.log(response[x].trim())
+              getId(response[x].trim())        
+            }
+          });
+          function getId(cityName) {
+            $.get('getIdOfCity/' + cityName.trim(), function(idResponse){
+                var ajustResponse = idResponse.trim().replaceAll('[','').replaceAll(']','')
+                $('#textCidade').append('<option value="'+ ajustResponse +'">' 
+                + cityName + '</option>');
+            }); 
+          };
+        });
+      </script>
+</div>
+{% endblock %}

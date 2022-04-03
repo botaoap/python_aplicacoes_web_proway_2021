@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+
+{% block titulo %}Excluir Clientes{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Excluir Clientes</label></h1>
+    </div>
+    <form method="post" action="">
+      {% csrf_token %}
+        <div class="mb-3">
+          <label for="textNome" class="form-label text-primary">Nome</label>
+          <input type="text" class="form-control" id="textNome" placeholder="Informe seu Nome" readonly value="{{ cliente.nome }}">
+        </div>
+        <div class="mb-3">
+          <label for="textEmail" class="form-label text-primary">Email</label>
+          <input type="email" class="form-control" id="textEmail" placeholder="nome@exemplo.com" readonly value="{{ cliente.email }}">
+        </div>
+        <div class="mb-3">
+            <label for="textDataNasc" class="form-label text-primary">Data de Nascimento</label>
+            <input type="text" class="form-control" id="textDataNasc" placeholder="00/00/0000" readonly value="{{ cliente.data_nasc }}">
+        </div>
+        <div class="mb-3">
+            <label for="textCpfCnpj" class="form-label text-primary">CPF/CNPJ</label>
+            <input type="number" class="form-control" id="textCpfCnpj" placeholder="000.000.000-00" readonly value="{{ cliente.cpfcnpj }}">
+        </div>
+        <div class="mb-3">
+          <label for="textCidade" class="form-label text-primary">Cidade</label>
+          <input type="text" class="form-control" id="textCidade" placeholder="Cidade" readonly value="{{ cidade_value.nome }}" >
+        </div>
+        <div class="mb-3">
+          <label for="textGenero" class="form-label text-primary">Genero</label>
+            {% if cliente.genero == 'M' %}
+            <input type="text" class="form-control" id="textGenero" name="genero" value="Masculino" readonly />
+            {% elif cliente.genero == 'F' %}
+            <input type="text" class="form-control" id="textGenero" name="genero" value="Feminino" readonly />
+            {% else %}
+            <input type="text" class="form-control" id="textGenero" name="genero" value="Inválido" readonly />
+            {% endif %}
+        </div>
+        <div class="mb-3">
+          <label for="textProfissao" class="form-label text-primary">Profissão</label>
+          <input type="text" class="form-control" id="textProfissao" placeholder="Informe a Profissão" readonly value="{{ cliente.profissao }}">
+        </div>
+        <div class="mb-3">
+          <label for="textRenda" class="form-label text-primary">Renda</label>
+          <input type="text" class="form-control" id="textRenda" placeholder="00,00" readonly value="{{ cliente.renda }}">
+        </div>
+        <div class="mb-3">
+          <label for="textCarro" class="form-label text-primary">Tem Carro?</label>
+            {% if cliente.carro == 'S' %}
+            <input type="text" class="form-control" id="txtCarro" name="carro" value="Sim" readonly />
+            {% else %}
+            <input type="text" class="form-control" id="txtCarro" name="carro" value="Não" readonly />
+            {% endif %}
+        </div>
+        <div class="mb-3">
+          <label for="textEstadoCivil" class="form-label text-primary">Estado Civil</label>
+          <input type="text" class="form-control" id="textEstadoCivil" placeholder="Estado Civil" readonly value="{{ cliente.estado_civil }}">
+        </div>
+        <div class="mb-3">
+          <label for="textFilho" class="form-label text-primary">Tem Filho?</label>
+            {% if cliente.filhos == 'S' %}
+            <input type="text" class="form-control" id="txtFilhos" name="filhos" value="Sim" readonly />
+            {% else %}
+            <input type="text" class="form-control" id="txtFilhos" name="filhos" value="Não" readonly />
+            {% endif %}
+        </div>
+        <div style="margin-bottom: 2%;">
+          <input class="btn btn-danger" type="submit" value="Excluir" />
+          <input class="btn btn-primary" type="reset" value="Cancel" />
+        </div>
+      </form>
+</div>
+{% endblock %}

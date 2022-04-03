@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Cidade{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Lista de Cidade</label></h1>
+    </div>
+    {% include 'search.html' %}
+    <select class="form-select" id="txtSearchEstado" name="txtSearchEstado">
+        <option value="0" selected>Selecione</option>
+        {% for ufs in uf %}
+          <option value="{{ ufs.id }}">{{ ufs.nome }}</option>
+        {% endfor %}
+      </select>
+    <br />
+    <div>
+        <a href="cadastro-cidade"><input type="button" value="Novo" class="btn btn-primary"></a>
+    </div>
+    {% if total > 0 %}
+    <table class="table table-striped" id="tableCidade">
+        <thead>
+            <tr>
+                <th colspan="3"></th>
+            </tr>
+            <tr>
+                <td><label>Nome</label></td>
+                <td colspan="2" align="right"><label>Açoes</label></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cidades in cidade %}
+            <tr>
+                <td>{{cidades.nome}}</td>
+                <td align="right">
+                    <a href="altera-cidade/{{ cidades.id }}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-cidade/{{ cidades.id }}"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
+        </tfoot>
+    </table>
+    {% elif hasSearch %}
+    {% include 'search-error.html' %}
+    {% else %}
+    {% include 'sem-itens.html' %}
+    {% endif %}
+    <script>
+    $('#txtSearchEstado').on('change', function() {
+        $.get('getCity/' + $(this).val(), function(cityResponse) {
+            var response = cityResponse.replaceAll('[', '').replaceAll(']', '').replaceAll('<Cidade:','').replaceAll('>','').replaceAll('<','');
+            response = response.split(',')
+            $("#tableCidade tbody").empty()
+            $("#tableCidade tfoot").empty()
+
+            var total = 0
+            for (x = 0; x < response.length; x++){
+              getId(response[x].trim())
+              if (response[x].trim() == '') {
+                  total = 0
+              }else {
+                  total = response.length
+              }
+            }
+            atTotalOfTable(total)
+          });
+        function getId(cityName) {
+            $.get('getIdOfCity/' + cityName.trim(), function(idResponse){
+                var ajustResponse = idResponse.trim().replaceAll('[','').replaceAll(']','')
+                addDataToTable(cityName, ajustResponse) 
+            });
+        };
+        function addDataToTable(cidade, id_cidade) {
+            $("#tableCidade tbody").append(
+                "<tr>"+
+                "<td>" + cidade +"</td>"+
+                '<td align="right">' +
+                    '<a href="altera-cidade/'+ id_cidade +'"><input type="button" class="btn btn-warning" value="Alterar"></a> <a href="exclui-cidade/'+ id_cidade +'"><input type="button" class="btn btn-danger" value="Excluir"></a>' +
+                "</td>" +
+                "</tr>"
+            );
+        }
+        function atTotalOfTable(total) {
+            $("#tableCidade tfoot").append(
+                '<td colspan="3" align="right"><label>Total de Registro:'+ total +'</label></td>'
+            )
+        }
+    });
+    </script>
+</div>
+{% endblock %}

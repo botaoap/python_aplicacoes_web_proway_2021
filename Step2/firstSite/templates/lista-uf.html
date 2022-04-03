@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Uf{% endblock %}
+
+{% block body %}
+<div id="content-data">
+    <div style="display: flex; justify-content: center;">
+        <h1 class="text-primary"><label>Lista de Uf</label></h1>
+    </div>
+    {% include 'search.html' %}
+    {% if user.is_authenticated %}
+        <div>
+            <a href="cadastro-uf"><input type="button" value="Novo" class="btn btn-primary" ></a>
+        </div>
+    {% endif %}
+    {% if total > 0 %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th colspan="3"></th>
+            </tr>
+            <tr>
+                <td><label>Nome</label></td>
+                <td ><label>Sigla</label></td>
+                <td colspan="2" align="right"><label>Açoes</label></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ufs in uf %}
+            <tr>
+                <td>{{ ufs.nome }}</td>
+                <td>{{ ufs.sigla }}</td>
+                <td align="right">
+                    <a href="altera-uf/{{ ufs.id }}"><input type="button" class="btn btn-warning" value="Alterar"></a>
+                    <a href="exclui-uf/{{ ufs.id }}"><input type="button" class="btn btn-danger" value="Excluir"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <td colspan="3" align="right"><label>Total de Registro: {{ total }}</label></td>
+        </tfoot>
+    </table>
+    {% elif hasSearch %}
+    {% include 'search-error.html' %}   
+    {% else %}
+    {% include 'sem-itens.html' %}
+    {% endif %}
+</div>
+{% endblock %}
